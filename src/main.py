@@ -26,20 +26,18 @@ def interpret_command(cmd,user='krzem'):
     output='\n'
     global EXP
     global coords
-    
+
     if cmd[1:3]=='xp':
         minus=False
         if cmd[4:7]=='add':
             exp_=cmd[8:]
             if exp_.isnumeric():
-                if minus:
-                    exp_='-'+exp_
                 if 100001>int(exp_)>-100001:
                     EXP+=int(exp_)
                     if EXP<0:
                         EXP=0
                     output+=sayings['xp amout']+str(EXP)
-                    
+
                 else:
                     output+=errors['short error']+'\n'
                     output+='Usage:\t'+help_['xp']
@@ -48,10 +46,8 @@ def interpret_command(cmd,user='krzem'):
                output+='Usage:\t'+help_['xp']
         elif cmd[4:10]=='delete':
             exp_=cmd[11:]
-            minus=True
             if exp_.isnumeric():
-                if minus:
-                    exp_='-'+exp_
+                exp_='-'+exp_
                 if 100001>int(exp_)>-100001:
                     EXP+=int(exp_)
                     if EXP<0:
@@ -66,7 +62,7 @@ def interpret_command(cmd,user='krzem'):
         else:
             output+=errors['invalid string']%('')+'\n'
             output+='Usage:\t'+help_['xp']
-        
+
 
     elif cmd[1:3]=='tp':
         list_tp=cmd[4:].split(' ')
@@ -81,7 +77,7 @@ def interpret_command(cmd,user='krzem'):
                         exit_=True
                         break
                 cnt+=1
-        
+
             if not exit_:
                 coords[list_tp[0]]['x']=list_tp[1]
                 coords[list_tp[0]]['y']=list_tp[2]
@@ -93,13 +89,12 @@ def interpret_command(cmd,user='krzem'):
             output+='Usage:\t'+help_['tp']
 
     elif cmd[1:5]=='help':
-        try:
-            if cmd[5]==' 'and cmd[6:].isalpha():
-                if cmd[6:] in commands:
-                    output+='Usage:\t'+help_[cmd[6:]]
-                else:
-                    output+=errors['no cmd']%(cmd[6:])
-        except:
+        if cmd[5]==' 'and cmd[6:].isalpha():
+            if cmd[6:] in commands:
+                output+='Usage:\t'+help_[cmd[6:]]
+            else:
+                output+=errors['no cmd']%(cmd[6:])
+        else:
             output+='Commands:'
             for cmd_ in help_.keys():
                 output+='\n'+help_[cmd_]
@@ -137,20 +132,17 @@ def interpret_command(cmd,user='krzem'):
     elif cmd[1:7]=='effect':
         if cmd[8:16]=='strenght':
             output+='strenght'
-            try:
-                if cmd[16]==' ':
-                    if cmd[17:20].isnumeric():
-                        output+=' '+int(cmd[17:20])
-                    else:
-                        output+=errors['intiger error']%('Number')+'\n'
-                        output+='Usage:\t'+help_['effect']
+            if cmd[16]==' ':
+                if cmd[17:20].isnumeric():
+                    output+=' '+int(cmd[17:20])
                 else:
                     output+=errors['intiger error']%('Number')+'\n'
                     output+='Usage:\t'+help_['effect']
-            except:
-                output+=''
-            
-        
+            else:
+                output+=errors['intiger error']%('Number')+'\n'
+                output+='Usage:\t'+help_['effect']
+
+
     else:
         output+='<%s> '%(user)
         output+=cmd[0:]
