@@ -28,7 +28,6 @@ def interpret_command(cmd,user='krzem'):
     global coords
 
     if cmd[1:3]=='xp':
-        minus=False
         if cmd[4:7]=='add':
             exp_=cmd[8:]
             if exp_.isnumeric():
