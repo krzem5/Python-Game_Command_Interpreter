@@ -61,8 +61,6 @@ def interpret_command(cmd,user='krzem'):
 		else:
 			output+=errors['invalid string']%('')+'\n'
 			output+='Usage:\t'+help_['xp']
-
-
 	elif cmd[1:3]=='tp':
 		list_tp=cmd[4:].split(' ')
 		cnt=1
@@ -140,8 +138,6 @@ def interpret_command(cmd,user='krzem'):
 			else:
 				output+=errors['intiger error']%('Number')+'\n'
 				output+='Usage:\t'+help_['effect']
-
-
 	else:
 		output+='<%s> '%(user)
 		output+=cmd[0:]
